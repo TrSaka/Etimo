@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "625627404994",
+    "project_id": "koksoz",
+    "storage_bucket": "koksoz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625627404994:android:577cc3f644b3605264395b",
+        "android_client_info": {
+          "package_name": "com.example.etimo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNDOEXmVJAQWR5NHJV7UN1QJ5VQZA-4yY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625627404994-b201lcvdd9kdcf2ebb62oergqbfl1u9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.etimo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625627404994:android:c88cc7e95646a1ef64395b",
+        "android_client_info": {
+          "package_name": "com.example.etimology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNDOEXmVJAQWR5NHJV7UN1QJ5VQZA-4yY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625627404994-b201lcvdd9kdcf2ebb62oergqbfl1u9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.etimo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625627404994:android:3b7580e9f0dcedf164395b",
+        "android_client_info": {
+          "package_name": "com.koksoz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNDOEXmVJAQWR5NHJV7UN1QJ5VQZA-4yY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625627404994-fbd9tr2d0l24jigcaqf1n8enfk25q2oa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625627404994-b201lcvdd9kdcf2ebb62oergqbfl1u9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.etimo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

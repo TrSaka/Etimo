@@ -64,12 +64,11 @@ class _CustomRateState extends State<CustomRate> {
                       ),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: radiusCircular(),
                       ),
                       content: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        decoration:
+                            BoxDecoration(borderRadius: radiusCircular()),
                         child: InkWell(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -105,6 +104,8 @@ class _CustomRateState extends State<CustomRate> {
       ),
     );
   }
+
+  BorderRadius radiusCircular() => BorderRadius.circular(20);
 
   SizedBox starIcon(int number) {
     return SizedBox(

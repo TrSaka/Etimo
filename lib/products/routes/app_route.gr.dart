@@ -26,25 +26,34 @@ class AppRouter extends _i4.RootStackRouter {
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
     MenuRoute.name: (routeData) {
-      return _i4.MaterialPageX<dynamic>(
+      return _i4.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.MenuView(),
+        transitionsBuilder: _i4.TransitionsBuilders.slideLeft,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     InfoRoute.name: (routeData) {
-      return _i4.MaterialPageX<dynamic>(
+      return _i4.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.InfoView(),
+        transitionsBuilder: _i4.TransitionsBuilders.slideLeft,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     WordInfoRoute.name: (routeData) {
       final args = routeData.argsAs<WordInfoRouteArgs>();
-      return _i4.MaterialPageX<dynamic>(
+      return _i4.CustomPage<dynamic>(
         routeData: routeData,
         child: _i3.WordInfoView(
           key: args.key,
           data: args.data,
         ),
+        transitionsBuilder: _i4.TransitionsBuilders.slideLeft,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };

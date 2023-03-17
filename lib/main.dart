@@ -1,13 +1,30 @@
+import 'dart:io';
+
+import 'package:etimology/models/dictionary_word_model.dart';
 import 'package:etimology/products/routes/app_route.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'firebase_options.dart';
 import 'init/theme/app_theme_light.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
+  late Directory dBDirectory;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (kIsWeb) {
+    Hive.init(null);
+  } else {
+    dBDirectory = await getApplicationDocumentsDirectory();
+    Hive.init(dBDirectory.path);
+  }
+
+  Hive.registerAdapter(DictionaryModelAdapter());
+  await Hive.openBox("SavedBox");
+
   initalizaiton;
   runApp(MyApp());
 }

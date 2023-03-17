@@ -35,27 +35,21 @@ class _AboutViewState extends State<AboutView> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: responsive.kDefaultNormalHeight / 8),
-                Text(
-                  viewModel.titleText,
-                  style: currentTheme.textTheme.titleLarge,
-                ),
+                Text(viewModel.titleText,
+                    style: currentTheme.textTheme.titleLarge),
                 const Divider(color: Colors.grey, thickness: 2),
                 SizedBox(height: responsive.kSpacesize),
                 CustomRate(responsive: responsive, viewModel: viewModel),
                 SizedBox(height: responsive.kSpacesize),
-                Text(
-                  viewModel.mainText,
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: const TextStyle(fontSize: 24),
-                  ),
-                  textAlign: TextAlign.start,
-                ),
+                Text(viewModel.mainText,
+                    style: GoogleFonts.aBeeZee(
+                      textStyle: const TextStyle(fontSize: 24),
+                    ),
+                    textAlign: TextAlign.start),
                 SizedBox(height: responsive.kSpacesize * 2),
-                Text(
-                  viewModel.creditText,
-                  style: currentTheme.textTheme.titleSmall,
-                  textAlign: TextAlign.center,
-                ),
+                Text(viewModel.creditText,
+                    style: currentTheme.textTheme.titleSmall,
+                    textAlign: TextAlign.center),
               ],
             ),
           ),

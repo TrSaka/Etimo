@@ -31,6 +31,17 @@ class _QuestionViewState extends State<QuestionView> {
     Stream truefalseStream = viewModel.controller1.stream.asBroadcastStream();
 
     return Scaffold(
+      appBar: AppBar(
+        title: TextButton(
+            onPressed: () {
+              viewModel.shuffle();
+              setState(() {});
+            },
+            child: const Text(
+              "Yenile",
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            )),
+      ),
       body: StreamBuilder(
           initialData: UIColor.transparent, //initial data
           stream: truefalseStream, //Change background color true false Stream
@@ -84,27 +95,26 @@ class _QuestionViewState extends State<QuestionView> {
                                     height: DefaultResponsiveSizes(context)
                                             .kDefaultNormalHeight /
                                         4),
-                                Text(
-                                  question.word.toUpperCase(),
-                                  style: GoogleFonts.signikaNegative(
-                                    textStyle: const TextStyle(fontSize: 40),
-                                  ),
-                                ),
-                                const Size20(),
-                                TrueFalseWidget(
-                                  answers: answers,
-                                  question: question,
-                                  viewModel: viewModel,
-                                  r: false,
-                                ),
-                                const Size20(),
-                                TrueFalseWidget(
-                                  answers: answers,
-                                  question: question,
-                                  viewModel: viewModel,
-                                  r: true,
-                                ),
-                                const Size20(),
+                                FutureBuilder(
+                                    future: Future.delayed(
+                                        const Duration(milliseconds: 500)),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Text(
+                                          question.word.toUpperCase(),
+                                          style: GoogleFonts.signikaNegative(
+                                              textStyle: const TextStyle(
+                                                  fontSize: 40)),
+                                        );
+                                      } else {
+                                        return const SizedBox();
+                                      }
+                                    }),
+                                getTrueFalseWidget(false, question, answers),
+                                const SizedBox(height: 20),
+                                getTrueFalseWidget(true, question, answers),
+                                const SizedBox(height: 20),
                               ],
                             )),
                           );
@@ -118,6 +128,19 @@ class _QuestionViewState extends State<QuestionView> {
               ),
             );
           }),
+    );
+  }
+
+  Widget getTrueFalseWidget(
+    bool r,
+    QuestionModel questionModel,
+    List<String> answers,
+  ) {
+    return TrueFalseWidget(
+      answers: answers,
+      question: questionModel,
+      viewModel: viewModel,
+      r: r,
     );
   }
 }

@@ -20,33 +20,51 @@ class TrueFalseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          if (r == false
-              ? answers[0] == question.correct
-              : answers[1] == question.correct) {
-            correct();
-          } else {
-            wrong();
-          }
-        },
-        child: Container(
-          width: DefaultResponsiveSizes(context).kDefaultWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: UIColor.buttonColor,
-          ),
-          child: Center(
-              child: Text(
-            r == false ? answers[0].toUpperCase() : answers[1].toUpperCase(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 40,
+    return FutureBuilder(
+      future: Future.delayed(const Duration(milliseconds: 500)),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Expanded(
+            child: InkWell(
+              onTap: () {
+                if (r == false
+                    ? answers[0] == question.correct
+                    : answers[1] == question.correct) {
+                  correct();
+                } else {
+                  wrong();
+                }
+              },
+              child: Container(
+                width: DefaultResponsiveSizes(context).kDefaultWidth,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: UIColor.buttonColor,
+                ),
+                child: Center(
+                    child: Text(
+                  r == false
+                      ? answers[0].toUpperCase()
+                      : answers[1].toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
+                )),
+              ),
             ),
-          )),
-        ),
-      ),
+          );
+        } else {
+          return StreamBuilder(
+            stream: viewModel.controller1.stream,
+            builder: (context, snapshot) {
+              return Container(
+                color: snapshot.data,
+              );
+            },
+          );
+        }
+      },
     );
   }
 
@@ -54,7 +72,6 @@ class TrueFalseWidget extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 100));
     viewModel.controller1.sink.add(Colors.green[300]);
     return Future.delayed(const Duration(milliseconds: 500), () {
-      viewModel.controller.sink.add(viewModel.shuffle());
       viewModel.controller1.sink.add(UIColor.backgroundColor);
     });
   }
@@ -63,7 +80,6 @@ class TrueFalseWidget extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 100));
     viewModel.controller1.sink.add(Colors.red[600]);
     return Future.delayed(const Duration(milliseconds: 500), () {
-      viewModel.controller.sink.add(viewModel.shuffle());
       viewModel.controller1.sink.add(UIColor.backgroundColor);
     });
   }

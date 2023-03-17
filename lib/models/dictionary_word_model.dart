@@ -1,13 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
+
+part 'dictionary_word_model.g.dart';
+
+@HiveType(typeId: 0)
 class DictionaryModel {
   final int? id;
+  @HiveField(0)
   final String kelime;
+  @HiveField(1)
   final String ek;
+  @HiveField(2)
   final String kok;
+  @HiveField(3)
   final String tur;
+  @HiveField(4)
   final int? fav;
+  @HiveField(5)
   DictionaryModel({
     this.id,
     required this.kelime,

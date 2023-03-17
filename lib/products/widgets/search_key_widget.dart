@@ -1,10 +1,11 @@
-import 'package:etimology/core/services/sql_service.dart';
+
 import 'package:etimology/core/utils/colors.dart';
 import 'package:etimology/models/dictionary_word_model.dart';
 import 'package:etimology/products/routes/app_route.gr.dart';
 import 'package:etimology/products/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive/hive.dart';
 import '../../core/utils/size.dart';
 
 var change = Colors.grey[350];
@@ -13,20 +14,30 @@ class KeyItem extends StatelessWidget {
   const KeyItem({
     Key? key,
     required this.data,
+    required this.index,
   }) : super(key: key);
 
   final DictionaryModel data;
+  final int index;
 //add view model and also you must add admin dashboard also you must add keyword page and question true or false
   @override
   Widget build(BuildContext context) {
-    SQLSerivce.getByName(data);
-
+    List keys = [];
     return FutureBuilder(
-      future: SQLSerivce.getByName(data),
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return widget(context, true);
-        } else {
+      builder: (context, snapshot) {
+        try {
+          for (int i = 0; i < Hive.box("SavedBox").length; i++) {
+            DictionaryModel data = Hive.box("SavedBox").getAt(i);
+            keys.add(data.kelime);
+          }
+          if (keys.isEmpty) {
+            return widget(context, false);
+          }
+          if (keys.contains(data.kelime)) {
+            return widget(context, true);
+          }
+          return widget(context, false);
+        } catch (e) {
           return widget(context, false);
         }
       },
@@ -46,15 +57,24 @@ class KeyItem extends StatelessWidget {
                 SlidableAction(
                   onPressed: ((context) async {
                     if (favorite == true) {
-                      await SQLSerivce.deleteNote(data);
+                      Hive.box("SavedBox").deleteAt(index);
+                      // await SQLSerivce.deleteNote(data);
                     } else {
-                      await SQLSerivce.saveWord(DictionaryModel(
+                      final model = DictionaryModel(
                         kelime: data.kelime,
                         ek: data.ek,
                         kok: data.kok,
                         tur: data.tur,
                         fav: 1,
-                      ));
+                      );
+
+                      if (Hive.isBoxOpen("SavedBox") == true) {
+                        Hive.box("SavedBox").add(model);
+                        debugPrint("created Data");
+                      } else {
+                        await Hive.openBox("SavedBox")
+                            .then((value) => Hive.box("SavedBox").add(model));
+                      }
                     }
                   }),
                   backgroundColor: favorite == true
@@ -75,9 +95,8 @@ class KeyItem extends StatelessWidget {
                   width: DefaultResponsiveSizes(context).kDefaultWidth - 20,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: favorite == true
-                        ? UIColor.favColor
-                        : UIColor.greyColor,
+                    color:
+                        favorite == true ? UIColor.favColor : UIColor.greyColor,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Center(

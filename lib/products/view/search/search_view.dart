@@ -7,6 +7,7 @@ import 'package:etimology/products/routes/app_route.gr.dart';
 import 'package:etimology/products/routes/route.dart';
 import 'package:etimology/products/view_model/search/search_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:multiple_stream_builder/multiple_stream_builder.dart';
 import '../../widgets/search_bar_widget.dart';
 import '../../widgets/search_key_widget.dart';
@@ -22,9 +23,16 @@ class _SearchViewState extends State<SearchView> {
   var viewModel = SearchViewModel();
 
   @override
+  void initState() {
+    Hive.openBox("SavedBox");
+    super.initState();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     viewModel.controller.close();
+
   }
 
   @override
@@ -68,14 +76,17 @@ class _SearchViewState extends State<SearchView> {
 
                       //if our textformfield is empty
                       if (viewModel.name.isEmpty) {
-                        return word(data: data);
+                        return word(
+                          data: data,
+                          index: index,
+                        );
                       }
 
                       if (value['kelime'] //try to find word which typed
                           .toString()
                           .toLowerCase()
                           .startsWith(viewModel.name.toLowerCase())) {
-                        return word(data: data);
+                        return word(data: data, index: index);
                       }
 
                       return const SizedBox(); //just for null safety :)
@@ -114,9 +125,11 @@ class word extends StatelessWidget {
   const word({
     Key? key,
     required this.data,
+    required this.index,
   }) : super(key: key);
 
   final DictionaryModel data;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +137,7 @@ class word extends StatelessWidget {
       onTap: () {
         NavRoute(WordInfoRoute(data: data));
       },
-      child: KeyItem(data: data),
+      child: KeyItem(data: data, index: index),
     );
   }
 }

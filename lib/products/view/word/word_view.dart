@@ -5,6 +5,7 @@ import 'package:etimology/products/widgets/star_widget.dart';
 import 'package:etimology/products/view_model/word/word_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class WordInfoView extends StatefulWidget {
   final DictionaryModel data;
@@ -24,16 +25,36 @@ class _WordInfoViewState extends State<WordInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    Icon defaultIcon =
+        const Icon(Icons.bookmark_border_rounded); // default unsaved
     WordInfoViewModel viewModel = WordInfoViewModel();
     var responsive = DefaultResponsiveSizes(context);
     final word = widget.data;
+
+    List keys = [];
+
+    try {
+      for (int i = 0; i < Hive.box("SavedBox").length; i++) {
+        DictionaryModel data = Hive.box("SavedBox").getAt(i);
+        keys.add(data.kelime);
+      }
+      if (keys.isEmpty) {
+        defaultIcon = defaultIcon;
+      }
+      if (keys.contains(widget.data.kelime)) {
+        defaultIcon = Icon(Icons.bookmark_outlined);
+      }
+      defaultIcon = defaultIcon;
+    } catch (e) {
+      defaultIcon = defaultIcon;
+    }
 
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const AppBarTitle(
             title: "Kelime",
-            subtitle: "...",
+            subtitle: "Sayfası",
           ),
         ),
         body: Column(
@@ -49,34 +70,36 @@ class _WordInfoViewState extends State<WordInfoView> {
                   icon: const Icon(Icons.arrow_back_ios_rounded),
                 ),
                 CustomStar(
-                  responsive: responsive,
-                  viewModel: viewModel,
-                  model: word,
-                ),
+                    responsive: responsive, viewModel: viewModel, model: word),
               ],
             ),
-            Center(
-                child: Column(
-              children: [
-                Text(
-                  widget.data.kelime.toUpperCase(),
-                  style: GoogleFonts.itim(fontSize: 48, color: Colors.black87),
-                ),
-                Text(
-                  "Ek : ${word.ek}",
-                  style: GoogleFonts.itim(fontSize: 40, color: Colors.black87),
-                ),
-                Text(
-                  "Kök : ${word.kok}",
-                  style: GoogleFonts.itim(fontSize: 40, color: Colors.black87),
-                ),
-                Text(
-                  "Tür : ${word.tur}",
-                  style: GoogleFonts.itim(fontSize: 40, color: Colors.black87),
-                ),
-              ],
-            )),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.2,
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  getText("", word.kelime.toUpperCase(), true),
+                  getText("Ek:", word.ek, false),
+                  getText("Kok:", word.kok, false),
+                  getText("Tur:", word.tur, false),
+                ],
+              )),
+            ),
           ],
         ));
+  }
+
+  Text getText(String type, String word, bool title) {
+    return Text(
+      "$type  $word",
+      style: title == true
+          ? GoogleFonts.itim(fontSize: 48, color: Colors.black87)
+          : GoogleFonts.itim(fontSize: 40, color: Colors.black87),
+    );
   }
 }

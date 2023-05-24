@@ -1,16 +1,26 @@
-# etimology
+Turkey Teknofest Education Technologies
+#26 in 123.001 project.
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Application for learn word dictionary with source of word.
+Etimology application for Turkish Students and who wants to learn Turkish Etimology.
 
-A few resources to get you started if this is your first Flutter project:
+The CPU's frame per second was performed by Dart Open Dev Tools
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+web:
+etimo.net
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+gp store:
+https://play.google.com/store/apps/details?id=com.etimo.etimology
+
+
+
+Technologies/Packages :
+ Firebase
+ Riverpod
+ Hive Local DB
+ MVVM
+ Mobx
+ Dev Dev Tools
+ 

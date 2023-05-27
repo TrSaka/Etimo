@@ -9,7 +9,7 @@ Etimology application for Turkish Students and who wants to learn Turkish Etimol
 The CPU's frame per second was performed by Dart Open Dev Tools
 
 web:
-etimo.net
+[etimo.net](https://etimo.net)
 
 gp store:
 https://play.google.com/store/apps/details?id=com.etimo.etimology
